@@ -9,13 +9,14 @@ const id = route.params.id
 const product = reactive({})
 const comments = ref([])
 onBeforeMount(() => {
-console.log(id);
-  axios.get(`https://dummyjson.com/products/${id}`)
+
+
+  axios.get(`http://localhost:8000/api/products/${id}`)
       .then(res => {
         product.id = res.data.id
         product.title = res.data.title
         product.body = res.data.body
-        product.image = res.data.thumbnail
+        product.image = res.data.image
         product.price = res.data.price
         product.description = res.data.description
       })
@@ -24,6 +25,8 @@ console.log(id);
 })
 </script>
 <template>
+
+  {{product}}
   <article class="mb-10">
     <h1 class="text-xl mb-2">
       {{ product.title }}
@@ -39,6 +42,7 @@ console.log(id);
       <button @click="cart.addItem(product)" class="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
         Add To Cart
       </button>
+
     </p>
   </article>
 

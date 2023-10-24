@@ -3,14 +3,16 @@
 import { ref, reactive, onBeforeMount } from 'vue'
 import axios from 'axios'
 import {cart} from '../stores/cart'
+import {wishlist} from '../stores/wishlist'
+import WishListIcon from "@/components/WishListIcon.vue";
 const products = ref([])
 function getSlug(title) {
   return title.toLowerCase().replace(/\s+/g, '-')
 }
 onBeforeMount(() => {
-  axios.get('https://dummyjson.com/products')
+  axios.get('http://localhost:8000/api/products')
       .then(res => {
-        products.value = res.data.products
+        products.value = res.data
       })
 })
 
@@ -22,12 +24,12 @@ onBeforeMount(() => {
     <div class="mx-auto px-12 py-8 ">
       <h2 class="text-2xl font-bold tracking-tight text-gray-900">Products</h2>
       <p>
-         {{ cart }}
+         {{ wishlist }}
       </p>
       <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-20">
-        <div  v-for="product in products" :key="product.id" class="group relative">
+        <div v-for="product in products" :key="product.id"  class="group relative">
           <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-            <img :src="product.thumbnail" class="h-full w-full object-cover object-center lg:h-full lg:w-full" />
+            <img :src="product.image" class="h-full w-full object-cover object-center lg:h-full lg:w-full" />
           </div>
           <div class="mt-4 flex justify-between">
             <div>
@@ -43,6 +45,13 @@ onBeforeMount(() => {
           <button @click="cart.addItem(product)" class="mt-2 bg-blue-500 hover:bg-blue-700 text-white text-sm py-2 px-4 rounded">
             Add To Cart
           </button>
+
+
+          <img @click="wishlist.toggleWishlist(product)" class="w-8 cursor-pointer" :src="wishlist.getIcon(product)" alt="">
+
+
+          <!--          <WishListIcon :product="product" />-->
+<!--                <wish-list-icon :product="product" />-->
         </div>
       </div>
     </div>

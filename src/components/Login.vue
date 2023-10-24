@@ -4,10 +4,10 @@ import {ref} from 'vue'
 import { authStore } from '../stores/store';
 const auth = authStore
 
+// import router from '../router/router'
 
-
-const username = ref('')
-const password =  ref('')
+const username = ref('john@doe.com')
+const password =  ref('12345')
 
 </script>
 <template>
@@ -21,7 +21,7 @@ const password =  ref('')
             </h1>
             <div class="space-y-4 md:space-y-6" action="#">
               <div>
-                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                 <input v-model="username" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="username" required="">
               </div>
               <div>
